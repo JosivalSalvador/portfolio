@@ -15,6 +15,7 @@ out/
 !.env.example
 !.env.test.example
 !.env.prod.example
+package-lock.json
 
 # Logs
 npm-debug.log*
