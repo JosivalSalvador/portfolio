@@ -4,6 +4,7 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
+    "precommit": "lint-staged",
     "dev": "dotenv -e .env -- prisma generate && tsx watch --env-file .env src/server.ts | pino-pretty",
     "build": "tsc",
     "start": "node dist/src/server.js",
@@ -21,9 +22,6 @@
     "db:reset": "dotenv -e .env -- prisma migrate reset --force --skip-seed",
     "db:format": "prisma format"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "dependencies": {
     "@fastify/cookie": "^11.0.2",
     "@fastify/cors": "^11.2.0",
@@ -64,7 +62,6 @@
     "typescript-eslint": "^8.53.0",
     "vitest": "^4.0.17"
   },
-  "description": "",
   "lint-staged": {
     "src/**/*.{ts,js}": [
       "npm run lint:fix"

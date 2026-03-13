@@ -4,6 +4,7 @@
   "type": "module",
   "private": true,
   "scripts": {
+    "precommit": "lint-staged",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",

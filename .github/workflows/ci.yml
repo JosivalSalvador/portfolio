@@ -180,7 +180,7 @@ jobs:
         run: |
           docker build \
             -f server/Dockerfile \
-            -t crochedat-server:ci .
+            -t portifolio-server:ci .
 
       - name: Build web image
         run: |
@@ -188,7 +188,7 @@ jobs:
             -f web/Dockerfile \
             --build-arg NEXT_PUBLIC_API_URL=http://localhost:3333 \
             --build-arg API_INTERNAL_URL=http://api:3333 \
-            -t crochedat-web:ci .
+            -t portifolio-web:ci .
 
   # ====================================================
   # 5. AUTO PR DEV → MAIN

@@ -22,8 +22,6 @@ enum Role {
 // 2. Tipos de Token
 enum TokenType {
   REFRESH_TOKEN
-  PASSWORD_RESET
-  EMAIL_VERIFY
 }
 
 model User {
@@ -39,11 +37,6 @@ model User {
 
   tokens        Token[] 
   
-  // --- Novas relações adicionadas abaixo ---
-  carts         Cart[]
-  chats         Chat[]
-  messages      Message[] 
-
   @@map("users")
 }
 
@@ -61,121 +54,3 @@ model Token {
   @@map("tokens")
 }
 
-// --- ENUMS ADICIONAIS ---
-
-enum CartStatus {
-  ACTIVE
-  FINISHED
-  ABANDONED
-}
-
-enum ChatType {
-  ORDER    // Encomenda (Relacionado a um carrinho)
-  SUPPORT  // Dúvida/Suporte Geral
-}
-
-// --- NOVOS MODELOS ---
-
-model Category {
-  id       String    @id @default(uuid())
-  name     String    @unique
-  products Product[]
-
-  @@map("categories")
-}
-
-model Product {
-  id             String         @id @default(uuid())
-  name           String
-  description    String
-  material       String
-  productionTime Int            @map("production_time")
-  price          Decimal        @db.Decimal(10, 2)
-  
-  categoryId     String         @map("category_id")
-  category       Category       @relation(fields: [categoryId], references: [id])
-  
-  images         ProductImage[]
-  cartItems      CartItem[]
-
-  createdAt      DateTime       @default(now()) @map("created_at")
-  updatedAt      DateTime       @updatedAt @map("updated_at")
-
-  @@map("products")
-}
-
-model ProductImage {
-  id        String  @id @default(uuid())
-  name      String
-  url       String
-  
-  productId String  @map("product_id")
-  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
-
-  @@map("product_images")
-}
-
-model Cart {
-  id        String     @id @default(uuid())
-  status    CartStatus @default(ACTIVE)
-  
-  userId    String     @map("user_id")
-  user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
-  
-  items     CartItem[]
-  chat      Chat?
-
-  createdAt DateTime   @default(now()) @map("created_at")
-  updatedAt DateTime   @updatedAt @map("updated_at")
-
-  @@map("carts")
-}
-
-model CartItem {
-  id        String  @id @default(uuid())
-  quantity  Int     @default(1)
-  
-  cartId    String  @map("cart_id")
-  cart      Cart    @relation(fields: [cartId], references: [id], onDelete: Cascade)
-  
-  productId String  @map("product_id")
-  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
-
-  @@map("cart_items")
-}
-
-model Chat {
-  id        String    @id @default(uuid())
-  isOpen    Boolean   @default(true) @map("is_open")
-  type      ChatType  @default(SUPPORT) // Define se é dúvida ou encomenda
-  
-  userId    String    @map("user_id")
-  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  
-  // 2. Relacionamento Opcional com o Cart
-  // Um chat de ENCOMENDA aponta para um carrinho. Um de DÚVIDA fica nulo aqui.
-  cartId    String?   @unique @map("cart_id") 
-  cart      Cart?     @relation(fields: [cartId], references: [id])
-  lastMessageAt   DateTime  @default(now()) @map("last_message_at")
-  
-  messages  Message[]
-
-  createdAt DateTime  @default(now()) @map("created_at")
-  updatedAt DateTime  @updatedAt @map("updated_at")
-
-  @@map("chats")
-}
-
-model Message {
-  id        String   @id @default(uuid())
-  content   String
-  createdAt DateTime @default(now()) @map("created_at")
-  
-  chatId    String   @map("chat_id")
-  chat      Chat     @relation(fields: [chatId], references: [id], onDelete: Cascade)
-  
-  senderId  String   @map("sender_id")
-  sender    User     @relation(fields: [senderId], references: [id], onDelete: Cascade)
-
-  @@map("messages")
-}

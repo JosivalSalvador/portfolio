@@ -1,5 +1,5 @@
 {
-  "name": "crochedat_2",
+  "name": "portifolio",
   "version": "1.0.0",
   "packageManager": "npm@11.7.0",
   "private": true,
@@ -7,7 +7,7 @@
     "web",
     "server"
   ],
- "scripts": {
+  "scripts": {
     "prepare": "husky install",
     "dev": "turbo run dev",
     "dev:web": "npm run dev -w web",
@@ -28,20 +28,12 @@
     "test:e2e:report": "npm run test:e2e:report -w web",
     "test:e2e:codegen": "npm run test:e2e:codegen -w web"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/JosivalSalvador/CrocheDaT_2.0.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/JosivalSalvador/CrocheDaT_2.0/issues"
-  },
-  "homepage": "https://github.com/JosivalSalvador/CrocheDaT_2.0#readme",
-  "description": "",
   "devDependencies": {
     "husky": "^8.0.0",
+    "tinyexec": "^1.0.4",
     "turbo": "latest"
+  },
+  "overrides": {
+    "@types/pg": "^8.16.0"
   }
 }

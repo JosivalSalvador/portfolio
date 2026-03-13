@@ -18,7 +18,7 @@ services:
       timeout: 5s
       retries: 5
     networks:
-      - croche-network
+      - portifolio-network
 
   # --- POSTGRES TEST ---
   postgres_test:
@@ -38,11 +38,11 @@ services:
       timeout: 5s
       retries: 5
     networks:
-      - croche-network
+      - portifolio-network
 
 networks:
-  croche-network:
-    name: croche-network
+  portifolio-network:
+    name: portifolio-network
     driver: bridge
 
 volumes:

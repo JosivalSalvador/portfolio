@@ -93,26 +93,5 @@ describe('Refresh Token Service (Integration)', () => {
       })
       expect(tokenCheck).toBeNull()
     })
-
-    it('should fail if token type invalid', async () => {
-      const uniqueEmail = generateUniqueEmail('john.invalid')
-      const user = await prisma.user.create({
-        data: {
-          name: 'John Invalid',
-          email: uniqueEmail,
-          password_hash: 'hash',
-        },
-      })
-
-      const invalidToken = await prisma.token.create({
-        data: {
-          type: TokenType.PASSWORD_RESET, // Tipo errado para refresh
-          userId: user.id,
-          expiresAt: new Date(Date.now() + 86400000), // Futuro
-        },
-      })
-
-      await expect(refreshUserToken(invalidToken.id)).rejects.toBeInstanceOf(AppError)
-    })
   })
 })
