@@ -1,0 +1,16 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+# --- BACKEND ---
+echo "Validando Server..."
+cd server
+npx lint-staged
+npm run type-check
+cd ..
+
+# --- FRONTEND ---
+echo "Validando Web..."
+cd web
+npx lint-staged
+npm run type-check
+cd ..

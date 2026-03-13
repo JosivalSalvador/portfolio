@@ -1,0 +1,66 @@
+services:
+  # O banco que você validou como "fastify_pg_dev"
+  postgres:
+    image: postgres:18-alpine
+    container_name: fastify_pg_dev
+    restart: unless-stopped
+    environment:
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=pass
+      - POSTGRES_DB=db
+    ports:
+      - "5432:5432" # Libera para o Studio da sua máquina
+    volumes:
+      - pgdata_dev:/var/lib/postgresql # O caminho que você validou
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U user -d db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - croche-network
+
+  # A sua API (croche-server-prod)
+  api:
+    build:
+      context: .
+      dockerfile: server/Dockerfile
+    container_name: api
+    restart: unless-stopped
+    depends_on:
+      postgres: # Espera o serviço 'postgres' ficar saudável
+        condition: service_healthy
+    env_file:
+      - ./server/.env.prod
+    ports:
+      - "3333:3333"
+    networks:
+      - croche-network
+
+  # O seu Web (croche-web-prod)
+  web:
+    build:
+      context: .
+      dockerfile: web/Dockerfile
+      args:
+        # Passando exatamente os args do seu comando 'docker build'
+        - NEXT_PUBLIC_API_URL=http://localhost:3333
+        - API_INTERNAL_URL=http://api:3333
+    container_name: croche-web
+    restart: unless-stopped
+    depends_on:
+      - api
+    env_file:
+      - ./web/.env.prod
+    ports:
+      - "3000:3000"
+    networks:
+      - croche-network
+
+volumes:
+  pgdata_dev:
+
+networks:
+  croche-network:
+    name: croche-network
+    driver: bridge

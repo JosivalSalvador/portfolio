@@ -1,0 +1,47 @@
+{
+  "name": "crochedat_2",
+  "version": "1.0.0",
+  "packageManager": "npm@11.7.0",
+  "private": true,
+  "workspaces": [
+    "web",
+    "server"
+  ],
+ "scripts": {
+    "prepare": "husky install",
+    "dev": "turbo run dev",
+    "dev:web": "npm run dev -w web",
+    "dev:server": "npm run dev -w server",
+    "build": "turbo run build",
+    "lint": "turbo run lint",
+    "type-check": "turbo run type-check",
+    "db:gen": "npm run db:gen -w server",
+    "db:migrate": "npm run db:migrate -w server",
+    "db:studio": "npm run db:studio -w server",
+    "db:seed": "npm run db:seed -w server",
+    "db:deploy": "npm run db:deploy -w server",
+    "db:reset": "npm run db:reset -w server",
+    "db:format": "npm run db:format -w server",
+    "test": "turbo run test",
+    "test:e2e": "npm run test:e2e -w web",
+    "test:e2e:ui": "npm run test:e2e:ui -w web",
+    "test:e2e:report": "npm run test:e2e:report -w web",
+    "test:e2e:codegen": "npm run test:e2e:codegen -w web"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JosivalSalvador/CrocheDaT_2.0.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JosivalSalvador/CrocheDaT_2.0/issues"
+  },
+  "homepage": "https://github.com/JosivalSalvador/CrocheDaT_2.0#readme",
+  "description": "",
+  "devDependencies": {
+    "husky": "^8.0.0",
+    "turbo": "latest"
+  }
+}
