@@ -54,3 +54,42 @@ model Token {
   @@map("tokens")
 }
 
+// ==========================================
+// 🚀 TABELAS DO CMS DO PORTFÓLIO
+// ==========================================
+
+model Project {
+  id          String   @id @default(uuid())
+  title       String
+  slug        String   @unique // Ex: "qualcelai" ou "crochedat" (usado para URL amigável)
+  description String   // Texto curto para aparecer no Card da tela inicial
+  content     String   @db.Text // O artigo completo explicando a arquitetura (Markdown/HTML)
+  imageUrl    String?  @map("image_url") // Link da imagem de capa
+  githubUrl   String?  @map("github_url") // Link do repositório
+  liveUrl     String?  @map("live_url") // Link do projeto rodando
+  
+  // Como você usa PostgreSQL, podemos usar um array nativo para as tags da stack!
+  // Ex: ["Next.js", "Fastify", "Docker", "Prisma"]
+  tags        String[] 
+  
+  featured    Boolean  @default(false) // Se true, o projeto ganha destaque na Home
+  views       Int      @default(0) // Contador para você mostrar o tráfego de cada projeto
+  
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  @@map("projects")
+}
+
+model Message {
+  id        String   @id @default(uuid())
+  name      String
+  email     String
+  subject   String?
+  content   String   @db.Text // A mensagem do recrutador/cliente
+  isRead    Boolean  @default(false) @map("is_read") // Flag para você marcar como lida no seu painel
+  
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("messages")
+}
