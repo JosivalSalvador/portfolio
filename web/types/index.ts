@@ -21,3 +21,5 @@ export interface HttpError {
 export * from "./sessions.types";
 export * from "./users.types";
 export * from "./refresh.types";
+export * from "./projects.types";
+export * from "./messages.types";

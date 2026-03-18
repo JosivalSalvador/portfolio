@@ -1,28 +1,36 @@
 import type { Metadata, Viewport } from "next";
-import { Inter } from "next/font/google";
+import { Inter, JetBrains_Mono } from "next/font/google";
 import { Providers } from "./providers";
 import "./globals.css";
 
-// Configuração da fonte como variável CSS
+// A fonte principal: Neutra, limpa e padrão ouro para SaaS e Portfólios Tech
 const inter = Inter({
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-inter",
+  variable: "--font-sans",
+});
+
+// A fonte secundária: Monoespaçada para os metadados, tags e código
+const jetBrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-mono",
 });
 
 export const metadata: Metadata = {
   title: {
-    default: "Crochê da T | Gerenciamento",
-    template: "%s | Crochê da T", // Permite páginas internas mudarem o título (ex: Dashboard | Crochê da T)
+    default: "Josival | Software Engineer",
+    template: "%s | Josival",
   },
-  description: "Sistema de gerenciamento de encomendas e peças de crochê.",
+  description:
+    "Portfólio de Engenharia de Software. Arquitetura Full Stack, Next.js, Fastify, Prisma e soluções de alta performance.",
 };
 
 export const viewport: Viewport = {
-  themeColor: "#000000",
+  themeColor: "#050505", // Tom escuro que casa com o nosso OLED do globals.css
   width: "device-width",
   initialScale: 1,
-  maximumScale: 1, // Evita zoom indesejado em inputs no iOS
+  maximumScale: 1,
 };
 
 export default function RootLayout({
@@ -31,20 +39,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    // 'dark' fixa pois seu design é focado nisso.
-    // lang 'pt-BR' corrigido (o padrão oficial usa o R maiúsculo)
     <html
       lang="pt-BR"
-      className={`dark ${inter.variable}`}
+      className={`dark ${inter.variable} ${jetBrainsMono.variable}`}
       suppressHydrationWarning
     >
-      <body
-        className={` ${inter.className} bg-background text-foreground selection:bg-primary/30 selection:text-primary min-h-screen antialiased`}
-      >
-        <Providers>
-          {/* Main para garantir acessibilidade e estrutura semântica */}
-          <main>{children}</main>
-        </Providers>
+      <body className="bg-background text-foreground min-h-screen font-sans antialiased">
+        <Providers>{children}</Providers>
       </body>
     </html>
   );

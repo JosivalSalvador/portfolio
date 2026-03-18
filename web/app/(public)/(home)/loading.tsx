@@ -1,67 +1,62 @@
-import { GridBackground } from "@/components/ui/grid-background";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Card, CardContent, CardFooter } from "@/components/ui/card";
 
-export default function PublicHomeLoading() {
+export default function HomeLoading() {
   return (
-    <div className="selection:bg-primary/30 relative flex min-h-screen flex-col">
-      <div className="pointer-events-none absolute inset-0 z-0">
-        <GridBackground />
-      </div>
+    <div className="flex w-full flex-col">
+      {/* Skeleton do Hero Section */}
+      <section className="border-border/10 relative w-full border-b py-24 md:py-32 lg:py-40">
+        <div className="container mx-auto flex flex-col items-center gap-6 px-6 text-center lg:px-12">
+          <Skeleton className="bg-muted/20 h-8 w-48 rounded-full" />
+          <Skeleton className="bg-muted/20 h-16 w-full max-w-3xl rounded-xl" />
+          <Skeleton className="bg-muted/20 mt-4 h-6 w-full max-w-xl rounded-md" />
 
-      <main className="relative z-10 container mx-auto flex-1 px-4 py-8 sm:px-6 md:py-12 lg:px-8 lg:py-16">
-        {/* CABEÇALHO SKELETON */}
-        <header className="mb-8 flex flex-col items-center text-center md:mb-12">
-          <Skeleton className="bg-primary/20 mb-3 h-3 w-32 rounded-full md:mb-4" />
-          <Skeleton className="bg-muted/50 h-10 w-3/4 max-w-lg rounded-xl sm:h-12 md:h-16" />
-          <Skeleton className="bg-muted/50 mt-4 h-4 w-4/5 max-w-2xl rounded-lg md:mt-6" />
-          <Skeleton className="bg-muted/50 mt-2 h-4 w-3/4 max-w-xl rounded-lg" />
-        </header>
+          <div className="mt-8 flex gap-4">
+            <Skeleton className="bg-muted/20 h-12 w-40 rounded-lg" />
+            <Skeleton className="bg-muted/20 h-12 w-40 rounded-lg" />
+          </div>
 
-        {/* MENU RÁPIDO SKELETON */}
-        <div className="mb-10 flex w-full items-center gap-3 overflow-hidden px-2 pt-2 pb-6 sm:justify-center md:mb-16 md:gap-4">
-          <Skeleton className="bg-muted/50 h-9 w-20 shrink-0 rounded-full md:h-11 md:w-24" />
-          <Skeleton className="bg-muted/50 h-9 w-28 shrink-0 rounded-full md:h-11 md:w-32" />
-          <Skeleton className="bg-muted/50 h-9 w-32 shrink-0 rounded-full md:h-11 md:w-36" />
-          <Skeleton className="bg-muted/50 h-9 w-24 shrink-0 rounded-full md:h-11 md:w-28" />
+          {/* Skeleton do Terminal simulado no Hero */}
+          <Skeleton className="bg-muted/10 border-border/30 mt-16 h-64 w-full max-w-4xl rounded-xl border" />
         </div>
+      </section>
 
-        {/* CARROSSÉIS SKELETON (Exatamente igual ao seu estado de loading) */}
-        <div className="space-y-10 md:space-y-16">
-          {Array.from({ length: 2 }).map((_, rowIndex) => (
-            <div key={rowIndex} className="w-full overflow-hidden">
-              <div className="border-border/40 mb-4 flex items-end justify-between border-b pb-3 md:mb-6 md:pb-4">
-                <Skeleton className="bg-muted/50 h-6 w-32 rounded-md md:h-8 md:w-48" />
-                <Skeleton className="bg-muted/50 h-4 w-16 rounded-md md:h-5 md:w-24" />
-              </div>
+      {/* Skeleton do Marquee */}
+      <section className="border-border/40 flex h-16 w-full items-center gap-8 overflow-hidden border-b bg-[#050505] px-12">
+        {[...Array(6)].map((_, i) => (
+          <Skeleton
+            key={i}
+            className="bg-muted/20 h-6 w-32 shrink-0 rounded-md"
+          />
+        ))}
+      </section>
 
-              <div className="flex flex-nowrap gap-3 overflow-hidden sm:gap-4 md:gap-6">
-                {Array.from({ length: 5 }).map((_, colIndex) => (
-                  <Card
-                    key={colIndex}
-                    className="border-border/40 bg-card/20 flex h-full min-w-[55%] flex-col overflow-hidden rounded-xl border shadow-none backdrop-blur-sm sm:min-w-[33.333%] sm:rounded-2xl md:min-w-[25%] lg:min-w-[20%]"
-                  >
-                    <div className="aspect-square w-full shrink-0">
-                      <Skeleton className="bg-muted/50 h-full w-full rounded-none" />
-                    </div>
-
-                    <CardContent className="flex flex-1 flex-col gap-1.5 p-3 sm:p-4">
-                      <Skeleton className="bg-muted/50 h-3 w-2/3 rounded-md sm:h-4" />
-                      <Skeleton className="bg-muted/50 h-2 w-full rounded-md sm:h-3" />
-                      <Skeleton className="bg-muted/50 h-2 w-4/5 rounded-md sm:h-3" />
-                    </CardContent>
-
-                    <CardFooter className="mt-auto flex flex-row items-center justify-between gap-2 p-3 pt-0 sm:p-4 sm:pt-0">
-                      <Skeleton className="bg-muted/50 h-4 w-12 rounded-md sm:h-5 sm:w-16" />
-                      <Skeleton className="bg-muted/50 h-7 w-14 shrink-0 rounded-md sm:h-8 sm:w-20 sm:rounded-lg" />
-                    </CardFooter>
-                  </Card>
-                ))}
-              </div>
-            </div>
-          ))}
+      {/* Skeleton do Bento Grid */}
+      <section className="container mx-auto px-6 py-24 lg:px-12">
+        <div className="mb-12 flex flex-col gap-4">
+          <Skeleton className="bg-muted/20 h-10 w-64 rounded-lg" />
+          <Skeleton className="bg-muted/20 h-6 w-96 rounded-md" />
         </div>
-      </main>
+        <div className="grid auto-rows-[minmax(300px,auto)] grid-cols-1 gap-4 md:grid-cols-5 md:gap-6">
+          <Skeleton className="bg-muted/10 border-border/30 rounded-2xl border md:col-span-2" />
+          <Skeleton className="bg-muted/10 border-border/30 rounded-2xl border md:col-span-3" />
+          <Skeleton className="bg-muted/10 border-border/30 h-48 rounded-2xl border md:col-span-5" />
+        </div>
+      </section>
+
+      {/* Skeleton dos Projetos */}
+      <section className="border-border/10 container mx-auto border-t px-6 py-24 lg:px-12">
+        <div className="mb-12 flex items-end justify-between">
+          <div className="flex flex-col gap-4">
+            <Skeleton className="bg-muted/20 h-10 w-72 rounded-lg" />
+            <Skeleton className="bg-muted/20 h-6 w-96 rounded-md" />
+          </div>
+          <Skeleton className="bg-muted/20 hidden h-6 w-32 rounded-md md:block" />
+        </div>
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+          <Skeleton className="bg-muted/10 border-border/30 h-87.5 rounded-2xl border" />
+          <Skeleton className="bg-muted/10 border-border/30 h-87.5 rounded-2xl border" />
+        </div>
+      </section>
     </div>
   );
 }

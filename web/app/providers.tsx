@@ -1,33 +1,34 @@
 "use client";
 
+import { useState, ReactNode } from "react";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { getQueryClient } from "@/lib/query/query-client";
 import { Toaster } from "sonner";
-import { ReactNode, useState } from "react";
+import { MotionConfig } from "framer-motion";
 
 /**
  * Componente Global de Providers
- * Envolve a aplicação para fornecer QueryClient e Notificações (Sonner)
+ * Envolve a aplicação para fornecer QueryClient, Acessibilidade de Animação e Notificações (Sonner)
  */
 export function Providers({ children }: { children: ReactNode }) {
-  // AJUSTE: Usamos useState para garantir que o queryClient seja criado
-  // APENAS UMA VEZ no lado do cliente.
   const [queryClient] = useState(() => getQueryClient());
 
   return (
     <QueryClientProvider client={queryClient}>
-      {children}
+      {/* Respeita a preferência de redução de movimento do Sistema Operacional */}
+      <MotionConfig reducedMotion="user">{children}</MotionConfig>
 
-      {/* Configuração do Sonner:
-          O richColors é essencial para as cores de erro/sucesso do Auth.
-      */}
+      {/* Toaster tunado para o visual Terminal/Brutalista */}
       <Toaster
         richColors
         closeButton
-        position="top-right"
-        // Removi o theme="dark" fixo para ele respeitar o sistema,
-        // ou você pode manter se o seu design for 100% dark mode.
-        theme="system"
+        position="bottom-right"
+        theme="dark" // Travado no dark mode
+        toastOptions={{
+          // Força as bordas retas e a fonte tech nas notificações
+          className:
+            "rounded-none border-border/50 bg-background text-foreground font-mono shadow-xl",
+        }}
       />
     </QueryClientProvider>
   );
