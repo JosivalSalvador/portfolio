@@ -1,17 +1,20 @@
-import { Header } from "./_components/header";
-import { Footer } from "./_components/footer";
+import { ReactNode } from "react";
+import { Header } from "./_components/geral/header";
+import { Footer } from "./_components/geral/footer";
+import { GridBackground } from "@/components/ui/grid-background";
 
-export default function PublicLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function PublicLayout({ children }: { children: ReactNode }) {
   return (
-    <div className="relative flex min-h-screen flex-col">
+    <div className="bg-background text-foreground relative flex min-h-dvh max-w-[100vw] flex-col overflow-x-hidden">
+      {/* O Motor Visual do Fundo (Grid OLED) */}
+      <GridBackground />
+
       <Header />
 
-      {/* O conteúdo dinâmico (a vitrine, o login, etc) entra aqui */}
-      <main className="flex flex-1 flex-col">{children}</main>
+      {/* pt-20 para dar respiro do Header fixo */}
+      <main className="relative z-10 flex w-full flex-1 flex-col pt-2">
+        {children}
+      </main>
 
       <Footer />
     </div>
