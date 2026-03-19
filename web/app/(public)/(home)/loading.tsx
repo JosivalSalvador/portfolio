@@ -1,60 +1,59 @@
-import { Skeleton } from "@/components/ui/skeleton";
+import { Terminal } from "lucide-react";
 
 export default function HomeLoading() {
   return (
-    <div className="flex w-full flex-col">
-      {/* Skeleton do Hero Section */}
-      <section className="border-border/10 relative w-full border-b py-24 md:py-32 lg:py-40">
-        <div className="container mx-auto flex flex-col items-center gap-6 px-6 text-center lg:px-12">
-          <Skeleton className="bg-muted/20 h-8 w-48 rounded-full" />
-          <Skeleton className="bg-muted/20 h-16 w-full max-w-3xl rounded-xl" />
-          <Skeleton className="bg-muted/20 mt-4 h-6 w-full max-w-xl rounded-md" />
+    <div className="bg-background flex min-h-screen w-full flex-col">
+      {/* 1. SKELETON DO HERO SECTION */}
+      <section className="container mx-auto flex flex-col items-start gap-6 px-6 py-24 md:py-32 lg:px-12">
+        {/* Badge do topo (Ex: Disponível para trabalho) */}
+        <div className="h-8 w-48 animate-pulse rounded-full border border-white/5 bg-white/3" />
 
-          <div className="mt-8 flex gap-4">
-            <Skeleton className="bg-muted/20 h-12 w-40 rounded-lg" />
-            <Skeleton className="bg-muted/20 h-12 w-40 rounded-lg" />
-          </div>
+        {/* Título Gigante */}
+        <div className="mt-4 w-full max-w-4xl space-y-4">
+          <div className="h-16 w-full animate-pulse rounded-2xl bg-white/4 md:h-20" />
+          <div className="h-16 w-4/5 animate-pulse rounded-2xl bg-white/4 md:h-20" />
+        </div>
 
-          {/* Skeleton do Terminal simulado no Hero */}
-          <Skeleton className="bg-muted/10 border-border/30 mt-16 h-64 w-full max-w-4xl rounded-xl border" />
+        {/* Parágrafo de subtítulo */}
+        <div className="mt-6 w-full max-w-2xl space-y-2">
+          <div className="h-5 w-full animate-pulse rounded-md bg-white/2" />
+          <div className="h-5 w-5/6 animate-pulse rounded-md bg-white/2" />
+        </div>
+
+        {/* Botões do Hero */}
+        <div className="mt-8 flex flex-wrap gap-4">
+          <div className="h-12 w-40 animate-pulse rounded-xl bg-white/6" />
+          <div className="h-12 w-32 animate-pulse rounded-xl border border-white/5 bg-white/2" />
         </div>
       </section>
 
-      {/* Skeleton do Marquee */}
-      <section className="border-border/40 flex h-16 w-full items-center gap-8 overflow-hidden border-b bg-[#050505] px-12">
-        {[...Array(6)].map((_, i) => (
-          <Skeleton
-            key={i}
-            className="bg-muted/20 h-6 w-32 shrink-0 rounded-md"
-          />
-        ))}
-      </section>
+      {/* 2. SKELETON DO DIVIDER (Estilo SYS.MODULES) */}
+      <div className="flex w-full items-center justify-center px-6 py-8 opacity-40">
+        <div className="flex w-full max-w-6xl items-center gap-4">
+          <div className="h-px flex-1 animate-pulse bg-[#262626]" />
+          <Terminal className="h-4 w-4 animate-pulse text-[#262626]" />
+          <div className="h-px flex-1 animate-pulse bg-[#262626]" />
+        </div>
+      </div>
 
-      {/* Skeleton do Bento Grid */}
-      <section className="container mx-auto px-6 py-24 lg:px-12">
-        <div className="mb-12 flex flex-col gap-4">
-          <Skeleton className="bg-muted/20 h-10 w-64 rounded-lg" />
-          <Skeleton className="bg-muted/20 h-6 w-96 rounded-md" />
+      {/* 3. SKELETON DO BENTO GRID (Fundação dos sistemas) */}
+      <section className="container mx-auto px-6 py-12 lg:px-12">
+        {/* Título da Seção */}
+        <div className="mb-10 space-y-3">
+          <div className="h-8 w-64 animate-pulse rounded-lg bg-white/3" />
+          <div className="h-4 w-96 animate-pulse rounded-md bg-white/2" />
         </div>
-        <div className="grid auto-rows-[minmax(300px,auto)] grid-cols-1 gap-4 md:grid-cols-5 md:gap-6">
-          <Skeleton className="bg-muted/10 border-border/30 rounded-2xl border md:col-span-2" />
-          <Skeleton className="bg-muted/10 border-border/30 rounded-2xl border md:col-span-3" />
-          <Skeleton className="bg-muted/10 border-border/30 h-48 rounded-2xl border md:col-span-5" />
-        </div>
-      </section>
 
-      {/* Skeleton dos Projetos */}
-      <section className="border-border/10 container mx-auto border-t px-6 py-24 lg:px-12">
-        <div className="mb-12 flex items-end justify-between">
-          <div className="flex flex-col gap-4">
-            <Skeleton className="bg-muted/20 h-10 w-72 rounded-lg" />
-            <Skeleton className="bg-muted/20 h-6 w-96 rounded-md" />
-          </div>
-          <Skeleton className="bg-muted/20 hidden h-6 w-32 rounded-md md:block" />
-        </div>
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-          <Skeleton className="bg-muted/10 border-border/30 h-87.5 rounded-2xl border" />
-          <Skeleton className="bg-muted/10 border-border/30 h-87.5 rounded-2xl border" />
+        {/* O Grid Bento propriamente dito */}
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+          {/* Card Largo (Frontend/Backend) */}
+          <div className="h-70 animate-pulse rounded-3xl border border-white/4 bg-white/2 md:col-span-2" />
+          {/* Card Quadrado */}
+          <div className="h-70 animate-pulse rounded-3xl border border-white/4 bg-white/2" />
+          {/* Card Quadrado */}
+          <div className="h-70 animate-pulse rounded-3xl border border-white/4 bg-white/2" />
+          {/* Card Largo */}
+          <div className="h-70 animate-pulse rounded-3xl border border-white/4 bg-white/2 md:col-span-2" />
         </div>
       </section>
     </div>

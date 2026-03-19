@@ -1,15 +1,34 @@
-"use client";
+import { AdminHeader } from "../_components/geral/admin-header";
+import { ProjectsDataTable } from "../_components/projects/projects-data-table";
+import { CreateProjectButton } from "../_components/projects/create-project-button";
+import { getProjectsListAction } from "@/actions/projects.actions";
+import { ProjectResponse } from "@/types/index";
 
-import { GridBackground } from "@/components/ui/grid-background";
+export const metadata = {
+  title: "Gerenciar Projetos | System Admin",
+};
 
-export default function PublicHomePage() {
+export const revalidate = 0;
+
+export default async function AdminProjectsPage() {
+  let projects: ProjectResponse[] = [];
+
+  try {
+    const response = await getProjectsListAction();
+    projects = response.projects || [];
+  } catch (error) {
+    console.error("[Admin Error] Falha ao carregar lista de projetos:", error);
+  }
+
   return (
-    <div className="selection:bg-primary/30 relative flex min-h-screen flex-col">
-      <div className="pointer-events-none absolute inset-0 z-0">
-        <GridBackground />
-      </div>
+    <div className="flex w-full flex-col pb-12">
+      <AdminHeader
+        title="Repositório de Projetos"
+        description="Gerencie os módulos do portfólio, edite documentações e controle projetos em destaque."
+        action={<CreateProjectButton />}
+      />
 
-      <main className="relative z-10 container mx-auto flex-1 px-4 py-8 sm:px-6 md:py-12 lg:px-8 lg:py-16"></main>
+      <ProjectsDataTable projects={projects} />
     </div>
   );
 }

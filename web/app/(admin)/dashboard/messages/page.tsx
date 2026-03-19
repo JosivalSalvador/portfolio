@@ -1,15 +1,32 @@
-"use client";
+import { AdminHeader } from "../_components/geral/admin-header";
+import { MessagesDataTable } from "../_components/messages/messages-data-table";
+import { getMessagesListAction } from "@/actions/messages.actions";
+import { MessageResponse } from "@/types/index";
 
-import { GridBackground } from "@/components/ui/grid-background";
+export const metadata = {
+  title: "Inbox | System Admin",
+};
 
-export default function PublicHomePage() {
+export const revalidate = 0;
+
+export default async function AdminMessagesPage() {
+  let messages: MessageResponse[] = [];
+
+  try {
+    const response = await getMessagesListAction();
+    messages = response.messages || [];
+  } catch (error) {
+    console.error("[Admin Error] Falha ao carregar caixa de entrada:", error);
+  }
+
   return (
-    <div className="selection:bg-primary/30 relative flex min-h-screen flex-col">
-      <div className="pointer-events-none absolute inset-0 z-0">
-        <GridBackground />
-      </div>
+    <div className="flex w-full flex-col gap-6 pb-12">
+      <AdminHeader
+        title="Caixa de Entrada"
+        description="Acompanhe as mensagens, orçamentos e contatos enviados pelo formulário público."
+      />
 
-      <main className="relative z-10 container mx-auto flex-1 px-4 py-8 sm:px-6 md:py-12 lg:px-8 lg:py-16"></main>
+      <MessagesDataTable messages={messages} />
     </div>
   );
 }
