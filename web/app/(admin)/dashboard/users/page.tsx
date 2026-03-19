@@ -1,15 +1,32 @@
-"use client";
+import { AdminHeader } from "../_components/geral/admin-header";
+import { UsersDataTable } from "../_components/users/users-data-table";
+import { getUsersListAction } from "@/actions/users.actions";
+import { UserResponse } from "@/types/index";
 
-import { GridBackground } from "@/components/ui/grid-background";
+export const metadata = {
+  title: "Controle de Acesso | System Admin",
+};
 
-export default function PublicHomePage() {
+export const revalidate = 0;
+
+export default async function AdminUsersPage() {
+  let users: UserResponse[] = [];
+
+  try {
+    const response = await getUsersListAction();
+    users = response.users || [];
+  } catch (error) {
+    console.error("[Admin Error] Falha ao carregar lista de usuários:", error);
+  }
+
   return (
-    <div className="selection:bg-primary/30 relative flex min-h-screen flex-col">
-      <div className="pointer-events-none absolute inset-0 z-0">
-        <GridBackground />
-      </div>
+    <div className="flex w-full flex-col gap-6 pb-12">
+      <AdminHeader
+        title="Controle de Acesso (RBAC)"
+        description="Gerencie permissões, promova contas a Suporte ou conceda privilégios de Administrador."
+      />
 
-      <main className="relative z-10 container mx-auto flex-1 px-4 py-8 sm:px-6 md:py-12 lg:px-8 lg:py-16"></main>
+      <UsersDataTable users={users} />
     </div>
   );
 }
