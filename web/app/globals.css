@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @plugin "tailwindcss-animate";
+@plugin "@tailwindcss/typography";
 
 @theme inline {
   --font-sans: "Inter", "Geist", ui-sans-serif, system-ui, sans-serif;
